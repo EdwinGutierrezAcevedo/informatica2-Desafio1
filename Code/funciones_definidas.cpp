@@ -12,6 +12,7 @@ void xorChannel(unsigned char* pixelData, const unsigned char* otherData, int to
         pixelData[i] = pixelData[i] ^ otherData[i];
     }
 }
+
 //Rotacion
 unsigned char rotateRight(unsigned char byte, int count) {
     count %= 8;
@@ -25,6 +26,7 @@ unsigned char rotateLeft(unsigned char byte, int count) {
 }
 //RotaciónImagen
 void rotateImageChannels(unsigned char* pixelData, int totalBytes, int rotateAmount, bool toLeft) {
+    //for (int j=posSemilla)
     for (int i = 0; i < totalBytes; ++i) {
         if (toLeft) {
             pixelData[i] = rotateLeft(pixelData[i], rotateAmount);
