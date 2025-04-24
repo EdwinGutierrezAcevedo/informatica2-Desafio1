@@ -41,6 +41,7 @@ using namespace std;
 
 int main()
 {
+    //Def
     // Definición de rutas de archivo de entrada (imagen original) y salida (imagen modificada)
     QString archivoEntrada = "I_O.bmp";
     QString archivoSalida = "I_D.bmp";
