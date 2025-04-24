@@ -6,36 +6,34 @@
 using namespace std;
 
 
+
 // Operacion Xor
-void xorChannel(unsigned char* pixelData, const unsigned char* otherData, int totalBytes) {
+void xorOperacion(unsigned char* pixelData, const unsigned char* otherData, int totalBytes) {
     for (int i = 0; i < totalBytes; ++i) {
         pixelData[i] = pixelData[i] ^ otherData[i];
     }
 }
-
 //Rotacion
-unsigned char rotateRight(unsigned char byte, int count) {
+unsigned char rotarDerecha(unsigned char byte, int count) {
     count %= 8;
     return (byte >> count) | (byte << (8 - count));
 }
 //Rotacion
-unsigned char rotateLeft(unsigned char byte, int count) {
+unsigned char rotarIzquierda(unsigned char byte, int count) {
     // Aseguramos que 'count' esté entre 0 y 7
     count %= 8;
     return (byte << count) | (byte >> (8 - count));
 }
 //RotaciónImagen
-void rotateImageChannels(unsigned char* pixelData, int totalBytes, int rotateAmount, bool toLeft) {
-    //for (int j=posSemilla)
+void rotarCanales(unsigned char* pixelData, int totalBytes, int rotateAmount, bool toLeft) {
     for (int i = 0; i < totalBytes; ++i) {
         if (toLeft) {
-            pixelData[i] = rotateLeft(pixelData[i], rotateAmount);
+            pixelData[i] = rotarIzquierda(pixelData[i], rotateAmount);
         } else {
-            pixelData[i] = rotateRight(pixelData[i], rotateAmount);
+            pixelData[i] = rotarDerecha(pixelData[i], rotateAmount);
         }
     }
 }
-
 unsigned char* loadPixels(QString input, int &width, int &height){ //IMPORTANTE
     /*
  * @brief Carga una imagen BMP desde un archivo y extrae los datos de píxeles en formato RGB.

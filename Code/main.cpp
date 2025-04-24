@@ -57,7 +57,7 @@ int main()
     unsigned char *pixelMascara = loadPixels(archivoMascara, width, height);
     unsigned char *arrXOR = loadPixels(archivoXOR, width, height);
     int tamArrOriginal=height*width*3;
-    xorChannel(pixelData,arrXOR,tamArrOriginal);
+    xorOperacion(pixelData,arrXOR,tamArrOriginal);
 
     // Exporta la imagen modificada a un nuevo archivo BMP
     bool exportI = exportImage(pixelData, width, height, archivoSalida);
