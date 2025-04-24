@@ -45,6 +45,8 @@ int main()
     // Definición de rutas de archivo de entrada (imagen original) y salida (imagen modificada)
     QString archivoEntrada = "I_O.bmp";
     QString archivoSalida = "I_D.bmp";
+    QString archivoXOR = "I_M.bmp";
+    QString archivoMascara = "M.bmp";
 
     // Variables para almacenar las dimensiones de la imagen
     int height = 0;
@@ -52,14 +54,10 @@ int main()
 
     // Carga la imagen BMP en memoria dinámica y obtiene ancho y alto
     unsigned char *pixelData = loadPixels(archivoEntrada, width, height);
-
-    // Simula una modificación de la imagen asignando valores RGB incrementales
-    // (Esto es solo un ejemplo de manipulación artificial)
-    for (int i = 0; i < width * height * 3; i += 3) {
-        pixelData[i] = i;     // Canal rojo
-        pixelData[i + 1] = i; // Canal verde
-        pixelData[i + 2] = i; // Canal azul
-    }
+    unsigned char *pixelMascara = loadPixels(archivoMascara, width, height);
+    unsigned char *arrXOR = loadPixels(archivoXOR, width, height);
+    int tamArrOriginal=height*width*3;
+    xorChannel(pixelData,arrXOR,tamArrOriginal);
 
     // Exporta la imagen modificada a un nuevo archivo BMP
     bool exportI = exportImage(pixelData, width, height, archivoSalida);
@@ -67,30 +65,35 @@ int main()
     // Muestra si la exportación fue exitosa (true o false)
     cout << exportI << endl;
     //a
-    // Libera la memoria usada para los píxeles
-    delete[] pixelData;
-    pixelData = nullptr;
+
 
     // Variables para almacenar la semilla y el número de píxeles leídos del archivo de enmascaramiento
     int seed = 0;
     int n_pixels = 0;
 
     // Carga los datos de enmascaramiento desde un archivo .txt (semilla + valores RGB)
-    unsigned int *maskingData = loadSeedMasking("M2.txt", seed, n_pixels);
+    unsigned int *maskingData = loadSeedMasking("M1.txt", seed, n_pixels);
+    int tamArrMascara= n_pixels*3;   //tamano total de la mascara
 
-    // Muestra en consola los primeros valores RGB leídos desde el archivo de enmascaramiento
-    for (int i = 0; i < n_pixels * 3; i += 3) {
+    //enmascaramiento
+    for (int i = 0; i < tamArrMascara; i+=3) {                    //S(k)=I_D(k+s) + M(k)
         cout << "Pixel " << i / 3 << ": ("
-             << maskingData[i] << ", "
-             << maskingData[i + 1] << ", "
-             << maskingData[i + 2] << ")" << endl;
+             <<   static_cast<int>(pixelData[seed + (i)]) + static_cast<int>(pixelMascara[i]) << ", "
+             <<  static_cast<int>(pixelData[seed + (i+1)])+ static_cast<int>(pixelMascara[i+1]) << ", "
+             <<   static_cast<int>(pixelData[seed + (i+2)]) + static_cast<int>(pixelMascara[i+2]) << ")" << endl;
     }
 
+    cout <<"*************************"<<endl;
+
+    // Libera la memoria usada para los píxeles
+    delete[] pixelData;
+    pixelData = nullptr;
     // Libera la memoria usada para los datos de enmascaramiento
     if (maskingData != nullptr){
         delete[] maskingData;
         maskingData = nullptr;
     }
+
 
     return 0; // Fin del programa
 }
