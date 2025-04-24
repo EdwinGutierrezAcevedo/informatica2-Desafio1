@@ -9,4 +9,6 @@ void xorOperacion(unsigned char* pixelData, const unsigned char* otherData, int 
 void rotarCanales(unsigned char* pixelData, int totalBytes, int rotateAmount, bool toLeft);// Operaacion Rotacion
 unsigned char rotarDerecha(unsigned char byte, int count);
 unsigned char rotarIzquierda(unsigned char byte, int count);
+
+bool autoOperacion(unsigned char *arrImagen,unsigned char *arrMascara,unsigned int *arrTxt,unsigned char *arrXor, int tamMascara, int cantidad, bool izquierda, int a, int semilla );
 #endif // FUNCIONES_H

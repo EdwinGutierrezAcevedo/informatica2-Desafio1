@@ -57,7 +57,11 @@ int main()
     unsigned char *pixelMascara = loadPixels(archivoMascara, width, height);
     unsigned char *arrXOR = loadPixels(archivoXOR, width, height);
     int tamArrOriginal=height*width*3;
-    xorOperacion(pixelData,arrXOR,tamArrOriginal);
+    bool result;
+
+
+
+    // xorOperacion(pixelData,arrXOR,tamArrOriginal);
 
     // Exporta la imagen modificada a un nuevo archivo BMP
     bool exportI = exportImage(pixelData, width, height, archivoSalida);
@@ -84,6 +88,9 @@ int main()
     }
 
     cout <<"*************************"<<endl;
+
+    result = autoOperacion(pixelData, pixelMascara, maskingData, arrXOR, tamArrMascara, 1, true, 1, seed );
+    cout<< result<<endl;
 
     // Libera la memoria usada para los píxeles
     delete[] pixelData;

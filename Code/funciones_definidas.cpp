@@ -34,6 +34,28 @@ void rotarCanales(unsigned char* pixelData, int totalBytes, int rotateAmount, bo
         }
     }
 }
+bool comprarDato(int dato, int datoB){
+    bool ban = true;
+    if(dato!=datoB){
+        ban = false;
+        return ban;
+    }else{
+        return ban;
+    }
+}
+bool autoOperacion(unsigned char *arrImagen,unsigned char *arrMascara,unsigned int *arrTxt,unsigned char *arrXor, int tamMascara, int cantidad, bool izquierda, int a, int semilla ){
+    bool ban = true;
+    for(int i = 0; i<tamMascara; i++){
+        unsigned char data = arrImagen[semilla + i] ^ arrXor[semilla +i];
+        int temporal = static_cast<int>(data)+ static_cast<int>(arrMascara[i]);
+        if(comprarDato(temporal,(arrTxt[i]))== false) {
+            ban = false;
+            return ban;
+        }
+    }
+    return ban;
+}
+
 unsigned char* loadPixels(QString input, int &width, int &height){ //IMPORTANTE
     /*
  * @brief Carga una imagen BMP desde un archivo y extrae los datos de píxeles en formato RGB.
