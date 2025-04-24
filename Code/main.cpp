@@ -65,7 +65,7 @@ int main()
 
     // Muestra si la exportación fue exitosa (true o false)
     cout << exportI << endl;
-
+    //a
     // Libera la memoria usada para los píxeles
     delete[] pixelData;
     pixelData = nullptr;
